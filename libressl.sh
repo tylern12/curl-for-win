@@ -18,7 +18,7 @@ _VER="$1"
 
   options="${_CONFIGURE_GLOBAL}"
   export CC="${_CC_GLOBAL}"
-  export CFLAGS="${_CFLAGS_GLOBAL} -O3 -Wa,--noexecstack"
+  export CFLAGS="${_CFLAGS_GLOBAL} -O2 -Wa,--noexecstack"
   export CPPFLAGS="${_CPPFLAGS_GLOBAL}"
   export LDFLAGS="${_LDFLAGS_GLOBAL} ${_LDFLAGS_GLOBAL_AUTOTOOLS}"
   export LIBS="${_LIBS_GLOBAL}"
@@ -40,11 +40,11 @@ _VER="$1"
       --disable-shared \
       --disable-tests \
       "--prefix=${_win_prefix}" \
-      "--with-openssldir=${_win_prefix}/${_ssldir}" --silent
+      "--with-openssldir=${_win_prefix}/${_ssldir}"
   )
 
   # Ending slash required.
-  make --directory="${_BLDDIR}" --jobs="${_JOBS}" install "DESTDIR=$(pwd)/${_PKGDIR}/" >/dev/null # 2>&1
+  make --directory="${_BLDDIR}" --jobs="${_JOBS}" install "DESTDIR=$(pwd)/${_PKGDIR}/" 2>&1
 
   # LibreSSL does not strip the drive letter
   #   ./libressl/${_PKGDIR}/C:/Windows/libressl
@@ -64,10 +64,10 @@ _VER="$1"
   for bin in \
     "${_PP}"/bin/openssl.exe \
   ; do
-    "${bin}" version
     file "${bin}"
     # Produce 'openssl version -a'-like output without executing the build:
     strings "${bin}" | grep -a -E '^(LibreSSL [0-9]|built on: |compiler: |platform: |[A-Z]+DIR: )' || true
+    "${bin}" version || true
   done
 
   . ../libressl-pkg.sh
