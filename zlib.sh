@@ -42,6 +42,8 @@ _VER="$1"
     fi
   fi
 
+  echo "||PATH||${PATH}||"
+
   # shellcheck disable=SC2086
   cmake . -B "${_BLDDIR}" ${_CMAKE_GLOBAL} ${options} \
     "-DCMAKE_RC_FLAGS=${_RCFLAGS_GLOBAL}" \
