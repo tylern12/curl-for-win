@@ -12,7 +12,7 @@ export CURL_HASH=dd322f6bd0a20e6cebdfd388f69e98c3d183bed792cf4713c8a7ef498cba489
 # Create revision string
 # NOTE: Set _REV to 1 after bumping CURL_VER_, then increment for each
 #       CI rebuild via `main` branch push (e.g. after bumping a dependency).
-export _REV="${CW_REVISION:-4t7}"
+export _REV="${CW_REVISION:-4t8}"
 
 export CACERT_VER_='2023-05-30'
 export CACERT_HASH=5fadcae90aa4ae041150f8e2d26c37d980522cdb49f923fc1e1b5eb8d74e71ad
@@ -52,10 +52,10 @@ export OPENSSL_VER_='3.1.2'
 export OPENSSL_HASH=a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539
 export BORINGSSL_VER_='e4acd6cb568214b1c7db4e59ce54ea2e1deae1f5'
 export BORINGSSL_HASH=559b0201111e89c503d79473611fbe0880d24dc4f2fbcc8306d78339a2a2b224
-export LIBRESSL_VER_='3.7.3'
-export LIBRESSL_HASH=7948c856a90c825bd7268b6f85674a8dcd254bae42e221781b24e3f8dc335db3
-#export LIBRESSL_VER_='3.8.0'
-#export LIBRESSL_HASH=12531c1ec808c5c6abeb311899664b0cfed04d4648f456dc959bb93c5f21acac
+#export LIBRESSL_VER_='3.7.3'
+#export LIBRESSL_HASH=7948c856a90c825bd7268b6f85674a8dcd254bae42e221781b24e3f8dc335db3
+export LIBRESSL_VER_='3.8.0'
+export LIBRESSL_HASH=12531c1ec808c5c6abeb311899664b0cfed04d4648f456dc959bb93c5f21acac
 export ZLIBNG_VER_='2.1.3'
 export ZLIBNG_HASH=d20e55f89d71991c59f1c5ad1ef944815e5850526c0d9cd8e504eaed5b24491a
 export ZLIB_VER_='1.2.13'
