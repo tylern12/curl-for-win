@@ -914,14 +914,14 @@ if [ "${_BRANCH#*a64*}" = "${_BRANCH}" ] && \
    [ "${_BRANCH#*x86*}" = "${_BRANCH}" ]; then
   build_single_target x64
 fi
-if [ "${_BRANCH#*x64*}" = "${_BRANCH}" ] && \
-   [ "${_BRANCH#*x86*}" = "${_BRANCH}" ]; then
-  build_single_target a64
-fi
-if [ "${_BRANCH#*x64*}" = "${_BRANCH}" ] && \
-   [ "${_BRANCH#*a64*}" = "${_BRANCH}" ]; then
-  build_single_target x86
-fi
+#if [ "${_BRANCH#*x64*}" = "${_BRANCH}" ] && \
+#   [ "${_BRANCH#*x86*}" = "${_BRANCH}" ]; then
+#  build_single_target a64
+#fi
+#if [ "${_BRANCH#*x64*}" = "${_BRANCH}" ] && \
+#   [ "${_BRANCH#*a64*}" = "${_BRANCH}" ]; then
+#  build_single_target x86
+#fi
 
 case "${_OS}" in
   mac)   rm -f -P "${SIGN_CODE_KEY}";;
