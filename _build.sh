@@ -31,8 +31,8 @@ set -o xtrace -o errexit -o nounset; [ -n "${BASH:-}${ZSH_NAME:-}" ] && set -o p
 #        nobrotli   build without brotli
 #        nozstd     build without zstd
 #        noftp      build without FTP/FTPS support
+#        quictls    build with quictls
 #        boringssl  build with BoringSSL
-#        libressl   build with LibreSSL
 #        schannel   build with Schannel
 #        mbedtls    build with mbedTLS
 #        wolfssl    build with wolfSSL (caveats!)
@@ -69,7 +69,6 @@ set -o xtrace -o errexit -o nounset; [ -n "${BASH:-}${ZSH_NAME:-}" ] && set -o p
 #      Optional. Skipping any operation missing a secret.
 
 # TODO:
-#   - Change default TLS to BoringSSL (with OPENSSL_SMALL?) or LibreSSL?
 #   - Drop x86 builds.
 #       https://data.firefox.com/dashboard/hardware
 #       https://gs.statcounter.com/windows-version-market-share
@@ -613,10 +612,10 @@ build_single_target() {
       # The build is successful with standard distro llvm 16 + mingw-w64 11,
       # but executables fail to run. The linker shows this warning:
       #   ld.lld: warning: Control Flow Guard is enabled but '_load_config_used' is missing
-      # Omitting the `-mguard=cf` linker option make the warning disappear, but
+      # Omitting linker option `-mguard=cf` makes the warning disappear, but
       # the executables fail to run anyway. It means that cfguard needs
-      # llvm-mingw with all objects compiled with cfguard and enabled at link
-      # time to end up with a runnable exe.
+      # llvm-mingw with all objects compiled with cfguard, and cfguard enabled
+      # at link time to end up with a runnable exe.
       _CFLAGS_GLOBAL="${_CFLAGS_GLOBAL} -mguard=cf"
       _LDFLAGS_GLOBAL="${_LDFLAGS_GLOBAL} -mguard=cf"
     fi

@@ -726,9 +726,9 @@ if [ "${_BRANCH#*pico*}" = "${_BRANCH}" ] && \
    [ "${_BRANCH#*micro*}" = "${_BRANCH}" ] && \
    [ "${_BRANCH#*mini*}" = "${_BRANCH}" ] && \
    [ "${_BRANCH#*schannel*}" = "${_BRANCH}" ]; then
-  if [ "${_BRANCH#*libressl*}" != "${_BRANCH}" ]; then
-    live_dl libressl "${LIBRESSL_VER_}"
-    live_xt libressl "${LIBRESSL_HASH}"
+  if [ "${_BRANCH#*quictls*}" != "${_BRANCH}" ]; then
+    live_dl quictls "${QUICTLS_VER_}"
+    live_xt quictls "${QUICTLS_HASH}"
   elif [ "${_BRANCH#*boringssl*}" != "${_BRANCH}" ]; then
     live_dl boringssl "${BORINGSSL_VER_}"
     live_xt boringssl "${BORINGSSL_HASH}"
@@ -740,8 +740,8 @@ if [ "${_BRANCH#*pico*}" = "${_BRANCH}" ] && \
     live_dl openssl "${OPENSSL_VER_}"
     live_xt openssl "${OPENSSL_HASH}"
   else
-    live_dl quictls "${QUICTLS_VER_}"
-    live_xt quictls "${QUICTLS_HASH}"
+    live_dl libressl "${LIBRESSL_VER_}"
+    live_xt libressl "${LIBRESSL_HASH}"
   fi
   need_cacert=1
 fi
