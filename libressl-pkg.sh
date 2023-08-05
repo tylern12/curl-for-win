@@ -27,7 +27,8 @@
   mkdir -p "${_DST}/bin"
   mkdir -p "${_DST}/lib"
 
-  cp -f -p "${_PP}"/bin/openssl.exe     "${_DST}/bin/"
+  [ -f "${_PP}"/bin/openssl.exe ] && cp -f -p "${_PP}"/bin/openssl.exe     "${_DST}/bin/"
+
   cp -f -p "${_PP}"/include/openssl/*.h "${_DST}/include/openssl/"
   cp -f -p "${_PP}"/include/*.h         "${_DST}/include/"
   cp -f -p "${_PP}"/lib/*.a             "${_DST}/lib"
