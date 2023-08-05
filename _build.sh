@@ -695,6 +695,36 @@ build_single_target() {
   export _OBJDUMP="${_BINUTILS_PREFIX}objdump${_BINUTILS_SUFFIX}"
   export _READELF="${_BINUTILS_PREFIX}readelf${_BINUTILS_SUFFIX}"
   export RC="${_BINUTILS_PREFIX}windres${_BINUTILS_SUFFIX}"
+  if [ "${_CC}" = 'llvm' ] && \
+     [ "${_TOOLCHAIN}" != 'llvm-mingw' ] && \
+     [ "${_OS}" = 'linux' ]; then
+    if ! command -v "${RC}" >/dev/null 2>&1 && \
+      [ -x "/usr/bin/${_BINUTILS_PREFIX}rc${_BINUTILS_SUFFIX}" ]; then
+      # FIXME: llvm-windres alias (to llvm-rc) may be missing from llvm.
+      #        Required with llvm-14 on Debian. Fixed in llvm-15.
+      #        Workaround: Create an alias and use that.
+      #        https://packages.debian.org/testing/amd64/llvm/filelist
+      RC="$(pwd)/${RC}"
+      ln -s -f "/usr/bin/${_BINUTILS_PREFIX}rc${_BINUTILS_SUFFIX}" "${RC}"
+    elif [ -n "${_BINUTILS_SUFFIX}" ]; then
+      # FIXME: llvm-windres present, but unable to find its clang counterpart
+      #        when suffixed:
+      #          llvm-windres-15 -O coff  --target=pe-x86-64 -I../include -i libcurl.rc -o x86_64-w64-windows-gnu/libcurl.res
+      #          llvm-rc: Unable to find clang, skipping preprocessing.
+      #          Pass -no-cpp to disable preprocessing. This will be an error in the future.
+      #        (the final name of that option is -no-preprocess, though we do
+      #        need preprocessing here.)
+      #          https://reviews.llvm.org/D100755
+      #          https://github.com/llvm/llvm-project/blob/main/llvm/tools/llvm-rc/llvm-rc.cpp
+      #          https://github.com/msys2/MINGW-packages/discussions/8736
+      RC="$(pwd)/${RC}"
+      ln -s -f "/usr/bin/${_BINUTILS_PREFIX}rc${_BINUTILS_SUFFIX}" "${RC}"
+      # llvm-windres/llvm-rc wants to find clang on the same path as itself
+      # (or in PATH), with the hard-wired name of clang (or <TRIPLET>-clang,
+      # or clang-cl). Workaround: create an alias for it:
+      ln -s -f "/usr/bin/clang${_CCSUFFIX}" "$(pwd)/clang"
+    fi
+  fi
   export AR="${_BINUTILS_PREFIX}ar${_BINUTILS_SUFFIX}"
   export NM="${_BINUTILS_PREFIX}nm${_BINUTILS_SUFFIX}"
   export RANLIB="${_BINUTILS_PREFIX}ranlib${_BINUTILS_SUFFIX}"
