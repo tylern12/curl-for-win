@@ -47,7 +47,7 @@ _VER="$1"
     "-DCMAKE_RC_FLAGS=${_RCFLAGS_GLOBAL}" \
     "-DCMAKE_C_FLAGS=${_CFLAGS_GLOBAL_CMAKE} ${_CFLAGS_GLOBAL} ${CFLAGS} ${_CPPFLAGS_GLOBAL} ${_LDFLAGS_GLOBAL} ${_LIBS_GLOBAL}"
 
-  make --directory="${_BLDDIR}" --jobs="${_JOBS}" install "DESTDIR=$(pwd)/${_PKGDIR}"
+  make --directory="${_BLDDIR}" --jobs="${_JOBS}" install "DESTDIR=$(pwd)/${_PKGDIR}" VERBOSE=1
 
   if [ "${_NAM}" = 'zlib' ] && \
      [ "${zlib_use_rc_wrapper}" != '1' ]; then

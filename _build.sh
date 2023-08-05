@@ -710,6 +710,7 @@ build_single_target() {
     _RC_WRAPPER="$(pwd)/llvm-windres-wrapper"
     {
       echo "#!/bin/sh -e"
+      echo 'set -x'
       echo "'${RC}' ${_RCFLAGS_GLOBAL} \"\$@\""
     } > "${_RC_WRAPPER}"
     chmod +x "${_RC_WRAPPER}"
