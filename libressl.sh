@@ -64,6 +64,7 @@ _VER="$1"
   for bin in \
     "${_PP}"/bin/openssl.exe \
   ; do
+    "${bin}" version
     file "${bin}"
     # Produce 'openssl version -a'-like output without executing the build:
     strings "${bin}" | grep -a -E '^(LibreSSL [0-9]|built on: |compiler: |platform: |[A-Z]+DIR: )' || true
