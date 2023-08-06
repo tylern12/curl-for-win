@@ -18,16 +18,16 @@ _VER="$1"
 
   options="${_CONFIGURE_GLOBAL}"
   export CC="${_CC_GLOBAL}"
-  export CFLAGS="${_CFLAGS_GLOBAL}"
+  export CFLAGS="${_CFLAGS_GLOBAL} -O2 -Wa,--noexecstack -Wa,-muse-unaligned-vector-move"
   export CPPFLAGS="${_CPPFLAGS_GLOBAL}"
   export LDFLAGS="${_LDFLAGS_GLOBAL} ${_LDFLAGS_GLOBAL_AUTOTOOLS}"
   export LIBS="${_LIBS_GLOBAL}"
 
-#  if [ "${_CC}" = 'llvm' ]; then
-#    CFLAGS="${CFLAGS} -Wno-inconsistent-dllimport"
-#  else
-#    CFLAGS="${CFLAGS} -Wno-attributes"
-#  fi
+  if [ "${_CC}" = 'llvm' ]; then
+    CFLAGS="${CFLAGS} -Wno-inconsistent-dllimport"
+  else
+    CFLAGS="${CFLAGS} -Wno-attributes"
+  fi
 
   _win_prefix='C:/Windows/libressl'
   _ssldir="ssl"

@@ -858,7 +858,7 @@ build_single_target() {
   bld wolfssl           "${WOLFSSL_VER_}"
   bld mbedtls           "${MBEDTLS_VER_}"
   bld boringssl       "${BORINGSSL_VER_}"
-  bld libressl-cmake   "${LIBRESSL_VER_}"
+  bld libressl         "${LIBRESSL_VER_}"
   bld openssl           "${OPENSSL_VER_}"
   bld quictls           "${QUICTLS_VER_}" openssl
   bld gsasl               "${GSASL_VER_}"
