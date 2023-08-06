@@ -26,7 +26,7 @@ _VER="$1"
   else
     # Unset this to use an alternative workaround which does not need our
     # _RC_WRAPPER trickery:
-    zlib_use_rc_wrapper='0'
+    zlib_use_rc_wrapper='1'
 
     if [ "${zlib_use_rc_wrapper}" = '1' ]; then
       # FIXME (upstream): zlib v1.2.13's prevents passing custom RCFLAGS to
@@ -36,10 +36,13 @@ _VER="$1"
     fi
 
     # llvm/clang 15+ workaround for: https://github.com/madler/zlib/issues/633
-    if [ "${_CC}" = 'llvm' ]; then
+    if [ "${_CC}" = 'llvm' ] && \
+       [ "${_CCVER}" != '14' ]; then
       CFLAGS="${CFLAGS} -Wno-deprecated-non-prototype"
     fi
   fi
+
+  echo "||PATH||${PATH}||"
 
   # shellcheck disable=SC2086
   cmake . -B "${_BLDDIR}" ${_CMAKE_GLOBAL} ${options} \
